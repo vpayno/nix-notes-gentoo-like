@@ -41,3 +41,13 @@ stdenv.mkDerivation rec {
   };
 }
 ```
+
+### overrideAttrs Function
+
+Used on the package that's being overridden.
+
+```nix
+packages = pkgs.hello.overrideAttrs {
+  pname = "goodbye";
+};
+```
