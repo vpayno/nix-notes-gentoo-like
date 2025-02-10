@@ -156,3 +156,87 @@ License GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>
 This is free software: you are free to change and redistribute it.
 There is NO WARRANTY, to the extent permitted by law.
 ```
+
+### DevShell Demos
+
+`nix develop` is a shell that exposes the package build step functions. It can
+also be used as the development shell for the project.
+
+If you need to use older versions of a program, `devbox` can be easier to use
+because you just have to specify an older version of a program that they have.
+Otherwise, you have to do the work to add an override to the overlay and the
+`devShell`.
+
+The `flake.nix` derivation uses overrideAttrs and overlays to add two older
+versions of the program and adds them to their respective `devShell`.
+
+```text
+$ nix develop
+
+$ which hello
+/nix/store/p09fxxwkdj69hk4mgddk4r3nassiryzc-hello-2.12.1/bin/hello
+
+$ hello --version
+hello (GNU Hello) 2.12.1
+Copyright (C) 2020 Free Software Foundation, Inc.
+License GPLv3+: GNU GPL version 3 or later <https://gnu.org/licenses/gpl.html>.
+This is free software: you are free to change and redistribute it.
+There is NO WARRANTY, to the extent permitted by law.
+
+Written by Karl Berry, Sami Kerola, Jim Meyering,
+and Reuben Thomas.
+```
+
+```text
+$ nix develop .#hello211
+
+$ which hello
+/nix/store/d64iwdk9i1af07cys6675y9ijsgdscwj-hello-2.11/bin/hello
+
+$ hello --version
+hello (GNU Hello) 2.11
+Copyright (C) 2020 Free Software Foundation, Inc.
+License GPLv3+: GNU GPL version 3 or later <https://gnu.org/licenses/gpl.html>.
+This is free software: you are free to change and redistribute it.
+There is NO WARRANTY, to the extent permitted by law.
+
+Written by Karl Berry, Sami Kerola, Jim Meyering,
+and Reuben Thomas.
+
+$ echo ${PATH} | tr ':' '\n'
+/nix/store/d64iwdk9i1af07cys6675y9ijsgdscwj-hello-2.11/bin
+/nix/store/6vpzxqaqvwiyqywssfavs1s51b4cgsin-bash-interactive-5.2p37/bin
+/nix/store/wdap4cr3bnm685f27y9bb6q5b6q18msl-coreutils-9.5/bin
+/nix/store/hz54jclm6r8dafgi4cwr0dmc7knhg9qd-cowsay-3.8.4/bin
+/nix/store/33g65w5cc9n8fr0hxj84282xmv4l7hyl-git-2.47.2/bin
+/nix/store/idp2zz9f81mzpi4pij6l5nv2lbn4dh4q-glow-2.0.0/bin
+/nix/store/hmixh88rjl67gapl5xg6mpfvwlwrz41s-moreutils-0.70/bin
+/nix/store/i0ibdw7smjlm8ldr24w5vkv01cfc7bch-runme-3.8.3/bin
+/nix/store/f04zhapn8n8w6yrd35s8sd9qmjp8g9ry-patchelf-0.15.0/bin
+/nix/store/4ijy8jbsiqmj37avrk83gn2m903486mr-gcc-wrapper-14-20241116/bin
+/nix/store/zs2gq6fkglrd28g1nxlb8waqq37cdc2z-gcc-14-20241116/bin
+/nix/store/9lcg6rsqbmx6s35jzy86b86pkj0qhxjl-glibc-2.40-66-bin/bin
+/nix/store/vrkxj51s4a1awh7m4p4f1w29wad5s20m-binutils-wrapper-2.43.1/bin
+/nix/store/5h5ghy2qf6l91l52j6m5vx473zi38vc3-binutils-2.43.1/bin
+/nix/store/wdap4cr3bnm685f27y9bb6q5b6q18msl-coreutils-9.5/bin
+/nix/store/032xw8dchwjipwqh6b3h70yc3mcmsqld-findutils-4.10.0/bin
+/nix/store/dd7xqz1qwl0di4zb8rzj7r1ds8np9xqs-diffutils-3.10/bin
+/nix/store/bffnm1211li6y431irplzbjbccr0k884-gnused-4.9/bin
+/nix/store/4lbfasv335vpk8rbcf3pgkag4rhg8jx8-gnugrep-3.11/bin
+/nix/store/xpzl2sf58fqfpl64b1fy1ihxay7k71li-gawk-5.3.1/bin
+/nix/store/zlmk040fc3jax9s3gldwp5rfwc1hhajc-gnutar-1.35/bin
+/nix/store/chwdy9qaxd13q8zvl0zd5r7ql2q116di-gzip-1.13/bin
+/nix/store/hpppxlcfvjzrvvcvhcm47divp65gbwq1-bzip2-1.0.8-bin/bin
+/nix/store/y0akgyz13jgxwm968bs8kay47zbxx638-gnumake-4.4.1/bin
+/nix/store/fd118hwh7d1ncib4mdw56ylv3g9k0iyj-bash-5.2p37/bin
+/nix/store/apqwjgbjj646wk2jkzr67l26djamn481-patch-2.7.6/bin
+/nix/store/rrv4bd5i7rp2m7j8ix4kl8bzijhh8gd3-xz-5.6.3-bin/bin
+/nix/store/qraqns84wjffzd8d3dgbdcyxg41czbd6-file-5.46/bin
+/home/vpayno/.nix-profile/bin
+/nix/var/nix/profiles/default/bin
+/home/vpayno/.local/bin
+/home/vpayno/bin
+/usr/local/bin
+/usr/bin
+/bin
+```
