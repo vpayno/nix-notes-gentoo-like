@@ -3,6 +3,10 @@
 Experimenting with Gentoo like features for overriding packages and using
 package overlays.
 
+A nice feature over Gentoo is that the used overlay is defined per package, app,
+nixos-module, nixos-configuration instead of per host. And its overrides also
+reside where they're being used.
+
 ## Overriding Packages
 
 In `Gentoo` you usually override packages by replacing/adding stage functions
@@ -50,4 +54,17 @@ Used on the package that's being overridden.
 packages = pkgs.hello.overrideAttrs {
   pname = "goodbye";
 };
+```
+
+## Overlays
+
+Same principle as Gentoo `repos` or `overlays`. It's a collection of functions
+and packages.
+
+Each overlay is defined as a function in the `overlays` list.
+
+```nix
+(newNixpkgs: oldNixpkgs: {
+  # your overlay is an attribute set accessible from pkgs
+})
 ```
