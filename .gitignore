@@ -1,5 +1,10 @@
 *~
 *bak
 
+# nix build
 /result
 /result-*
+
+# devbox
+/.devbox/
+/.venv/

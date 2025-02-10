@@ -240,3 +240,65 @@ $ echo ${PATH} | tr ':' '\n'
 /usr/bin
 /bin
 ```
+
+## Devbox Shell
+
+Using [devbox](https://github.com/jetify-com/devbox) instead of `dev-containers`
+this year.
+
+Benefits over dev containers?
+
+- Tooling is less complicated.
+- It's also easier/faster to make changes and "redeploy".
+- Sets up a Python virtualenv in the root of the project that you can use to
+  install packages with pip when they aren't available in Nix or for
+  local/private dependencies you haven't added a flake.nix file to.
+
+Benefits over `nix shell` or `nix develop`?
+
+- Easy way to start using Nix!
+- Builtin multiple versions for packages.
+- No `Nix` code to edit, just edit `devbox.json` or use the `devbox add` or
+  `devbox rm` commands to edit dependencies.
+- Sets up a Python virtualenv in the root of the project that you can use to
+  install packages with pip when they aren't available in Nix or for
+  local/private dependencies you haven't added a flake.nix file to.
+
+### Devbox Install
+
+[Install and setup instructions can be found here.](https://github.com/jetify-com/devbox?tab=readme-ov-file#installing-devbox)
+
+```bash { name=setup-00-devbox-show-installed excludeFromRunAll=true }
+devbox update
+devbox list
+```
+
+### Devbox Help
+
+- use `devbox search name` to search for packages
+- use `devbox info name` to show the info for a package
+- use `devbox add name` to add a package to the shell
+- use `devbox update` to update the lock file and environemnt
+- use `devbox shell` to start the `nix-shell`
+- use `devbox run command` to run a command inside the `nix-shell`
+
+## RunMe Playbook
+
+This and other readme files in this repo are RunMe Playbooks.
+
+Use this playbook step/task to update the [RunMe](https://runme.dev) CLI.
+
+You don't need to install `runme` locally, it's already in the `devbox` shell.
+
+Either run `runme` using `devbox run`:
+
+```bash
+devbox run runme
+```
+
+or by starting an interactive `devbox shell`:
+
+```bash
+devbox shell
+runme
+```
